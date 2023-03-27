@@ -1,1 +1,1 @@
-# Azure App Service Web App for a Windows .Net 6 Solution
+# Azure App for a Windows .Net 6 Solution
