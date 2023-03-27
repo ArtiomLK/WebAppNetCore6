@@ -1,0 +1,1 @@
+# Windows Azure App for a .Net 6 Solution
