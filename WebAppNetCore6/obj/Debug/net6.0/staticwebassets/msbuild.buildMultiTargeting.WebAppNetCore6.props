@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="..\build\WebAppNetCore6.props" />
+</Project>
