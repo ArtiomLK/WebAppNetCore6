@@ -4,7 +4,7 @@ on:
   push:
     paths:
       - '!**.md'
-      - '.github/workflows/app-ci-cd.yml'
+      - '.github/workflows/app-ci-cd.yaml'
       - 'WebAppNetCore6/**'
 
 env:
