@@ -3,7 +3,9 @@ on:
   workflow_dispatch: {}
   push:
     paths:
-      - '**'
+      - '!**.md'
+      - '.github/workflows/app-ci-cd.yml'
+      - 'WebAppNetCore6/**'
 
 env:
   AZURE_WEBAPP_NAME: app-WebAppNetCore6   # set this to your application's name
