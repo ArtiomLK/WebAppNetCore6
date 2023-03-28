@@ -5,9 +5,14 @@ on:
     paths:
       - '**'
 
+env:
+  AZURE_WEBAPP_NAME: MY_WEBAPP_NAME   # set this to your application's name
+  AZURE_WEBAPP_PACKAGE_PATH: '.'      # set this to the path to your web app project, defaults to the repository root
+  DOTNET_VERSION: '6.0.x'             # set this to the .NET Core version to use
+
 # write a gh workflow to build and deploy a .net6
 jobs:
-  build-and-deploy:
+  build:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
@@ -15,7 +20,7 @@ jobs:
     - name: Set up .NET Core
       uses: actions/setup-dotnet@v3
       with:
-        dotnet-version: '6.0.x'
+        dotnet-version: ${{ env.DOTNET_VERSION }}
 
     - name: Build with dotnet
       run: dotnet build --configuration Release
@@ -23,9 +28,8 @@ jobs:
     - name: Publish with dotnet
       run: dotnet publish -c Release -o ${{env.DOTNET_ROOT}}/myapp
 
-    # - name: Deploy Azure Web App
-    #   uses: azure/webapps-deploy@v2
-    #   with:
-    #     app-name: <app-name>
-    #     slot-name: <slot-name>
-    #     publish-profile: ${{ secrets.AzureAppService_PublishProfile_<app-name> }}
+    - name: Upload artifact for deployment job
+      uses: actions/upload-artifact@v3
+      with:
+        name: .net-app
+        path: ${{env.DOTNET_ROOT}}/myapp
