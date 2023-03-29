@@ -1,4 +1,4 @@
-name: Build and deploy ASP.NET Core app to Azure Web App
+name: DEV - Build and deploy ASP.NET Core app to Azure Web App
 on:
   workflow_dispatch: {}
   push:
@@ -11,6 +11,7 @@ env:
   AZURE_WEBAPP_NAME: app-a-WebAppNetCore6-dev-eastus    # set this to your application's name
   AZURE_WEBAPP_PACKAGE_PATH: '.'                        # set this to the path to your web app project, defaults to the repository root
   DOTNET_VERSION: '6.0.x'                               # set this to the .NET Core version to use
+  ENVIRONMENT: 'dev'                               # set this to the .NET Core version to use
 
 jobs:
   build:
@@ -45,6 +46,7 @@ jobs:
 
   deploy:
     runs-on: ubuntu-latest
+    environment: ${{ env.ENVIRONMENT }}
     needs: build
 
     steps:
