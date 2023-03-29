@@ -1,17 +1,18 @@
-name: Build and deploy ASP.NET Core app to Azure Web App
+name: STG - Build and deploy ASP.NET Core app to Azure Web App
 on:
   workflow_dispatch: {}
   push:
+    branches:
+      - 'main'
+      - 'cicd-stg'
     paths:
       - '!**.md'
-      - '.github/workflows/app-ci-cd.yaml'
+      - '.github/workflows/stg-app-ci-cd.yaml'
       - 'WebAppNetCore6/**'
 
 env:
-  AZURE_WEBAPP_NAME: app-WebAppNetCore6   # set this to your application's name
-  AZURE_WEBAPP_SLOT_NAME: st              # set this to your application's name
-  AZURE_WEBAPP_PACKAGE_PATH: '.'          # set this to the path to your web app project, defaults to the repository root
-  DOTNET_VERSION: '6.0.x'                 # set this to the .NET Core version to use
+  AZURE_WEBAPP_PACKAGE_PATH: '.'                        # set this to the path to your web app project, defaults to the repository root
+  DOTNET_VERSION: '6.0.x'                               # set this to the .NET Core version to use
 
 jobs:
   build:
@@ -44,8 +45,9 @@ jobs:
         name: .net-app
         path: ${{env.DOTNET_ROOT}}/myapp
 
-  deploy:
+  deploy-region-1:
     runs-on: ubuntu-latest
+    environment: stg
     needs: build
 
     steps:
@@ -58,7 +60,27 @@ jobs:
         id: deploy-to-webapp
         uses: azure/webapps-deploy@v2
         with:
-          app-name: ${{ env.AZURE_WEBAPP_NAME }}
-          slot-name: ${{ env.AZURE_WEBAPP_SLOT_NAME }}
-          publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
+          app-name: ${{ secrets.AZURE_WEBAPP_NAME_REGION_1 }}
+          slot-name: ${{ vars.AZURE_WEBAPP_SLOT_NAME }}
+          publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE_REGION_1 }}
+          package: ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}
+
+  deploy-region-2:
+    runs-on: ubuntu-latest
+    environment: stg
+    needs: build
+
+    steps:
+      - name: Download artifact from build job
+        uses: actions/download-artifact@v3
+        with:
+          name: .net-app
+
+      - name: Deploy to Azure Web App
+        id: deploy-to-webapp
+        uses: azure/webapps-deploy@v2
+        with:
+          app-name: ${{ secrets.AZURE_WEBAPP_NAME_REGION_2 }}
+          slot-name: ${{ vars.AZURE_WEBAPP_SLOT_NAME }}
+          publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE_REGION_2 }}
           package: ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}
