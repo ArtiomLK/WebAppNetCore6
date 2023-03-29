@@ -1,4 +1,4 @@
-name: DEV - Build and deploy ASP.NET Core app to Azure Web App
+name: STG - Build and deploy ASP.NET Core app to Azure Web App
 on:
   workflow_dispatch: {}
   push:
@@ -7,7 +7,7 @@ on:
       - 'cicd-stg'
     paths:
       - '!**.md'
-      - '.github/workflows/dev-app-ci-cd.yaml'
+      - '.github/workflows/stg-app-ci-cd.yaml'
       - 'WebAppNetCore6/**'
 
 env:
