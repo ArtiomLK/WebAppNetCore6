@@ -13,7 +13,8 @@ env:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on:
+      group: linux-runner-group
     steps:
     - uses: actions/checkout@v3
 
@@ -43,7 +44,8 @@ jobs:
         path: ${{env.DOTNET_ROOT}}/myapp
 
   deploy:
-    runs-on: ubuntu-latest
+    runs-on:
+      group: linux-runner-group
     environment: dev
     needs: build
 
