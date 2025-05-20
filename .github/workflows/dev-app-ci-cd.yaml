@@ -1,11 +1,20 @@
-name: DEV - Build and deploy ASP.NET Core app to Azure Web App
+name: DEV - Build & deploy App
+run-name: Build & deploy ASP.NET Core app to az app
+
 on:
   workflow_dispatch: {}
-  push:
+  pull_request:
+    branches:
+      - main
+    types:
+      - opened         # When a PR is created
+      - synchronize    # When commits are pushed to the PR branch
+      - reopened       # When a closed PR is reopened
     paths:
-      - '!**.md'
       - '.github/workflows/dev-app-ci-cd.yaml'
       - 'WebAppNetCore6/**'
+      - '!**.md'
+
 
 env:
   AZURE_WEBAPP_PACKAGE_PATH: '.'                        # set this to the path to your web app project, defaults to the repository root
@@ -15,15 +24,15 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
 
     - name: Set up .NET Core
-      uses: actions/setup-dotnet@v3
+      uses: actions/setup-dotnet@v4
       with:
         dotnet-version: ${{ env.DOTNET_VERSION }}
 
     - name: Set up dependency caching for faster builds
-      uses: actions/cache@v3
+      uses: actions/checkout@v4
       with:
         path: ~/.nuget/packages
         key: ${{ runner.os }}-nuget-${{ hashFiles('**/packages.lock.json') }}
