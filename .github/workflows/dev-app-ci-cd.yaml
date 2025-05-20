@@ -1,5 +1,5 @@
 name: DEV - Build & deploy App
-run-name: Build & deploy ASP.NET Core app to az app
+run-name: Build & deploy ASP.NET Core app to az app ${{ github.sha }}
 
 on:
   workflow_dispatch: {}
