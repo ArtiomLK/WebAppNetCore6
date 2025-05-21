@@ -1,6 +1,8 @@
 name: STG - Build & deploy App
 run-name: Build & deploy ASP.NET Core app to az app ${{ github.sha }}
 
+permissions:
+  contents: read
 on:
   workflow_dispatch: {}
   push:
