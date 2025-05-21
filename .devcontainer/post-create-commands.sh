@@ -9,3 +9,6 @@ curl -fsSL https://aka.ms/install-azd.sh | bash
 # Install .NET 6 SDK
 sudo apt update
 sudo apt install -y dotnet-sdk-6.0
+
+# Install the Library Manager CLI
+dotnet tool install -g Microsoft.Web.LibraryManager.Cli
