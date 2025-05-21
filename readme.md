@@ -116,9 +116,15 @@ az deployment sub create \
 ## Run the Application
 
 ```bash
+# Verify installation
+dotnet --list-sdks
+
 # go to the folder containing your .csproj file.
-cd src/WebAppNetCore6
+cd WebAppNetCore6
+
+# Restore the dependencies
 dotnet restore
+
 dotnet run --urls=http://0.0.0.0:5000
 
 ```
