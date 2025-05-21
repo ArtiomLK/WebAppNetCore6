@@ -12,9 +12,11 @@ namespace WebAppNetCore6.Pages
             _logger = logger;
         }
 
+        public string? app_n { get; set; }
+
         public void OnGet()
         {
-
+            app_n = Environment.GetEnvironmentVariable("app_n");
         }
     }
 }
