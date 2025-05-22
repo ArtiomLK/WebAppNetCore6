@@ -13,5 +13,5 @@
     },
     "codespaces": {}
   },
-  "postCreateCommand": "chmod +x .devcontainer/post-create-command.sh && .devcontainer/post-create-command.sh"
+  "postCreateCommand": "chmod +x .devcontainer/post-create-commands.sh && .devcontainer/post-create-commands.sh"
 }

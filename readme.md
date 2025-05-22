@@ -113,6 +113,24 @@ az deployment sub create \
   --parameters @.azure/iac/prod_parameters.json
 ```
 
+## Run the Application
+
+```bash
+# Verify installation
+dotnet --list-sdks
+
+# go to the folder containing your .csproj file.
+cd WebAppNetCore6
+
+# Restore the dependencies
+dotnet restore
+
+# Build the project
+dotnet build
+
+dotnet run --urls=http://0.0.0.0:5000
+```
+
 ## Additional Resources
 
 - GH
