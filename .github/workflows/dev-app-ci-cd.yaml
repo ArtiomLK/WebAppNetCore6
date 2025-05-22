@@ -28,7 +28,6 @@ jobs:
     steps:
     - uses: actions/checkout@v4
 
-
     - name: Inject GitHub commit hash into Index.cshtml
       run: |
         sed -i "s/__GIT_COMMIT__/${{ github.sha }}/g" WebAppNetCore6/Pages/Index.cshtml
