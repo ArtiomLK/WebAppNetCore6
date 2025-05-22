@@ -386,8 +386,8 @@ FodyWeavers.xsd
 *.sln.iml
 .idea/
 
-# Static web assets
-wwwroot/lib/
+# Static web assets, keep them for github scanning demo
+# wwwroot/lib/
 
 # Logs
 *.log
